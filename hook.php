@@ -137,16 +137,19 @@ class Deploy {
             exec('rm -rf ' . $this->_root_dir . '/ri-reports-codeigniter');
             $this->log('Deleted previous codeigniter folder');
 
+            // error_log('repo_dir: ' . $this->_repo_dir);
+
             // Move codeigniter files one up from public dir
             exec('cp -r ' . $this->_repo_dir . '/ri-reports-codeigniter ' . $this->_root_dir . '/ri-reports-codeigniter');
             $this->log('Copied codeigniter dir one up from public...');
 
-            // Delete the files/folders in public dir
+            // // Delete the files/folders in public dir
             exec('rm -rf ' . $this->_public_dir . '/*');
             $this->log('Deleted files/folders from public');
 
             // Move public files to public dir
-            exec('cp -r ' . $this->_repo_dir . '/public-html/{.,}* ' . $this->_public_dir);
+            exec('cp -r ' . $this->_repo_dir . '/public-html/* ' . $this->_public_dir);
+            exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
             $this->log('Copied public-html files to public dir...');
 
             // if (is_callable($this->post_deploy))
