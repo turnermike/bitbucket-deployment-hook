@@ -9,7 +9,7 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
         $ git checkout -b staging
         $ git push origin staging
 
-## Remote Server
+## Remote Server Setup
 
 1. Clone your repo a directory up from the public directory. SSH into the server and find the directory one up from the public html directory. Add a '.git' extension to the directory name so we know it's a git repo.
 
@@ -48,6 +48,7 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 7. The log file (deployment.log) may be left blank as the hook script will be writting to it.
 
+## Hook Script Setup
 
 
 
