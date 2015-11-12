@@ -31,23 +31,27 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
         $ nano .htaccess
 
-    Paste the following:
+        Copy and paste the code from .htaccess in this repo to your new file.
 
-        # deny direct access
-        order deny,allow
-        deny from all
 
-        # allow access from these Bitbucket IPs
-        allow from 131.103.20.160/27
-        allow from 165.254.145.0/26
-        allow from 165.254.145.0/26
+5. Add some code to your index.html file. It's just a directory index, no body should be able to access it, but just incase we'll add a message.
 
-        # php errors
-        php_flag display_startup_errors on
-        php_flag display_errors on
-        php_flag html_errors on
-        php_flag log_errors on
-        php_value error_log php_errors.log
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+                <title></title>
+                <meta name="description" content="">
+                <meta name="viewport" content="width=device-width">
+            </head>
+            <body>
+                <p>nothing to see here</p>
+            </body>
+        </html>
+
+
+
 
 
 
