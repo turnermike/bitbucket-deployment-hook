@@ -1,5 +1,11 @@
 <?php
 
+$options = new stdClass();
+$options->git_branch = 'staging';
+$options->git_remote = 'origin';
+$options->log_file = 'deployments.log';
+$options->date_format = 'Y-m-d H:i:s';
+
 //date_default_timezone_set('America/Toronto');
 
 class Deploy {
@@ -25,7 +31,7 @@ class Deploy {
      * @link    http://www.php.net/manual/en/function.date.php
      * @var     string
      */
-    private $_date_format = 'Y-m-d H:i:sP';
+    private $_date_format = 'Y-m-d H:i:s';
 
     /**
      * The name of the branch to pull from.
@@ -169,9 +175,8 @@ class Deploy {
 
 }
 
-// This is just an example
-$deploy = new Deploy(array('deployments.log', 'Y-m-d H:i:sP', 'staging', 'origin'));
-
+// go
+$deploy = new Deploy(array($options->log_file, $options->date_format, $options->git_remote, $options->git_remote));
 $deploy->execute();
 
 ?>
