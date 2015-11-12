@@ -31,7 +31,7 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
         $ nano .htaccess
 
-Paste the following:
+    Paste the following:
 
         # deny direct access
         order deny,allow
