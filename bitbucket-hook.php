@@ -1,6 +1,6 @@
 <?php
 
-//date_default_timezone_set('Europe/London');
+//date_default_timezone_set('America/Toronto');
 
 class Deploy {
 
@@ -66,13 +66,12 @@ class Deploy {
     /**
      * Sets up defaults.
      *
-     * @param  string  $directory  Directory where your website is located
      * @param  array   $data       Information about the deployment
      */
-    public function __construct($directory, $options = array())
+    public function __construct($options = array())
     {
         // Determine the directory path
-        $this->_directory = realpath($directory).DIRECTORY_SEPARATOR;
+        $this->_directory = realpath($this->_public_dir).DIRECTORY_SEPARATOR;
 
         $available_options = array('log', 'date_format', 'branch', 'remote');
 
@@ -156,7 +155,7 @@ class Deploy {
 
             if (is_callable($this->post_deploy))
             {
-                error_log('data: ' . $this->_data);
+                // error_log('data: ' . $this->_data);
                 call_user_func($this->post_deploy, $this->_data);
             }
 
@@ -171,7 +170,7 @@ class Deploy {
 }
 
 // This is just an example
-$deploy = new Deploy('/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca', array('deployments.log', 'Y-m-d H:i:sP', 'staging', 'origin'));
+$deploy = new Deploy(array('deployments.log', 'Y-m-d H:i:sP', 'staging', 'origin'));
 
 $deploy->execute();
 

@@ -1,7 +1,8 @@
 # deny direct access
 order deny,allow
 deny from all
-# allow access from these ip addresses (bitbucket)
+
+# allow access from these Bitbucket IPs
 allow from 131.103.20.160/27
 allow from 165.254.145.0/26
 allow from 165.254.145.0/26
