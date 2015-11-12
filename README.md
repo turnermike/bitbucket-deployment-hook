@@ -27,7 +27,7 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
         $ touch deployments.log
         $ touch index.html
 
-4. Add the following code to your .htaccess file.
+4. Add some code to your .htaccess file to only allow Bitbucket's servers access to the script and enable PHP error reporting.
 
         $ nano .htaccess
 
