@@ -36,19 +36,17 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 5. Add some code to your index.html file. It's just a directory index, no body should be able to access it, but just incase we'll add a message.
 
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-                <title></title>
-                <meta name="description" content="">
-                <meta name="viewport" content="width=device-width">
-            </head>
-            <body>
-                <p>nothing to see here</p>
-            </body>
-        </html>
+        $nano index.html
+
+        Copy and paste the code from index.html in this repo to your new file.
+
+6. Add the deployment script code.
+
+    $nano bitbucket-hook.php
+
+    Copy and paste the code from bitbucket-hook.php in this repo to your new file.
+
+7. The log file (deployment.log) may be left blank as the hook script will be writting to it.
 
 
 
