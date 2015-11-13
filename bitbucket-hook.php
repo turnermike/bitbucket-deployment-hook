@@ -1,10 +1,13 @@
 <?php
 
-$options = new stdClass();
+global $options = new stdClass();
 $options->git_branch = 'staging';
 $options->git_remote = 'origin';
 $options->log_file = 'deployments.log';
 $options->date_format = 'Y-m-d H:i:s';
+$options->root_dir = '/var/www/vhosts/ristaging.ca';
+$options->repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
+$options->public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
 
 //date_default_timezone_set('America/Toronto');
 
@@ -53,21 +56,21 @@ class Deploy {
      *
      * @var string
      */
-    private $_root_dir = '/var/www/vhosts/ristaging.ca';
+    private $_root_dir = $options->root_dir;
 
     /**
      * The git repo directory.
      *
      * @var string
      */
-    private $_repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
+    private $_repo_dir = $options->repo_dir;
 
     /**
      * The public/html directory.
      *
      * @var string
      */
-    private $_public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
+    private $_public_dir = $options->public_dir;
 
     /**
      * Sets up defaults.
