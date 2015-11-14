@@ -1,6 +1,6 @@
 <?php
 
-global $options = new stdClass();
+$options = new stdClass();
 $options->git_branch = 'staging';
 $options->git_remote = 'origin';
 $options->log_file = 'deployments.log';
@@ -8,6 +8,8 @@ $options->date_format = 'Y-m-d H:i:s';
 $options->root_dir = '/var/www/vhosts/ristaging.ca';
 $options->repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
 $options->public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
+
+$GLOBALS['options'] = $options;
 
 //date_default_timezone_set('America/Toronto');
 
