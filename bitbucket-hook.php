@@ -9,8 +9,6 @@ $options->root_dir = '/var/www/vhosts/ristaging.ca';
 $options->repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
 $options->public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
 
-$GLOBALS['options'] = $options;
-
 //date_default_timezone_set('America/Toronto');
 
 class Deploy {
@@ -58,21 +56,21 @@ class Deploy {
      *
      * @var string
      */
-    private $_root_dir = $options->root_dir;
+    private $_root_dir = '';
 
     /**
      * The git repo directory.
      *
      * @var string
      */
-    private $_repo_dir = $options->repo_dir;
+    private $_repo_dir = '';
 
     /**
      * The public/html directory.
      *
      * @var string
      */
-    private $_public_dir = $options->public_dir;
+    private $_public_dir = '';
 
     /**
      * Sets up defaults.
@@ -84,7 +82,7 @@ class Deploy {
         // Determine the directory path
         $this->_directory = realpath($this->_public_dir).DIRECTORY_SEPARATOR;
 
-        $available_options = array('log', 'date_format', 'branch', 'remote');
+        $available_options = array('log', 'date_format', 'branch', 'remote', 'root_dir', 'repo_dir', 'public_dir');
 
         foreach ($options as $option => $value)
         {
@@ -181,7 +179,17 @@ class Deploy {
 }
 
 // go
-$deploy = new Deploy(array($options->log_file, $options->date_format, $options->git_remote, $options->git_remote));
+$deploy = new Deploy(
+                array(
+                    $options->log_file,
+                    $options->date_format,
+                    $options->git_remote,
+                    $options->git_remote,
+                    $options->root_dir,
+                    $options->repo_dir,
+                    $options->public_dir
+                )
+            );
 $deploy->execute();
 
 ?>
