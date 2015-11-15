@@ -1,14 +1,5 @@
 <?php
 
-$options = new stdClass();
-$options->git_branch = 'staging';
-$options->git_remote = 'origin';
-$options->log_file = 'deployments.log';
-$options->date_format = 'Y-m-d H:i:s';
-$options->root_dir = '/var/www/vhosts/ristaging.ca';
-$options->repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
-$options->public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
-
 //date_default_timezone_set('America/Toronto');
 
 class Deploy {
@@ -19,22 +10,6 @@ class Deploy {
      * @var callback
      */
     public $post_deploy;
-
-    /**
-     * The name of the file that will be used for logging deployments. Set to
-     * FALSE to disable logging.
-     *
-     * @var string
-     */
-    private $_log = 'deployments.log';
-
-    /**
-     * The timestamp format used for logging.
-     *
-     * @link    http://www.php.net/manual/en/function.date.php
-     * @var     string
-     */
-    private $_date_format = 'Y-m-d H:i:s';
 
     /**
      * The name of the branch to pull from.
@@ -56,21 +31,37 @@ class Deploy {
      *
      * @var string
      */
-    private $_root_dir = '';
+    private $_root_dir = '/var/www/vhosts/ristaging.ca';
 
     /**
      * The git repo directory.
      *
      * @var string
      */
-    private $_repo_dir = '';
+    private $_repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
 
     /**
      * The public/html directory.
      *
      * @var string
      */
-    private $_public_dir = '';
+    private $_public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
+
+    /**
+     * The name of the file that will be used for logging deployments. Set to
+     * FALSE to disable logging.
+     *
+     * @var string
+     */
+    private $_log = 'deployments.log';
+
+    /**
+     * The timestamp format used for logging.
+     *
+     * @link    http://www.php.net/manual/en/function.date.php
+     * @var     string
+     */
+    private $_date_format = 'Y-m-d H:i:s';
 
     /**
      * Sets up defaults.
@@ -79,18 +70,18 @@ class Deploy {
      */
     public function __construct($options = array())
     {
-        // Determine the directory path
-        $this->_directory = realpath($this->_public_dir).DIRECTORY_SEPARATOR;
+        // // Determine the directory path
+        // $this->_directory = realpath($this->_public_dir).DIRECTORY_SEPARATOR;
 
-        $available_options = array('log', 'date_format', 'branch', 'remote', 'root_dir', 'repo_dir', 'public_dir');
+        // $available_options = array('log', 'date_format', 'branch', 'remote');
 
-        foreach ($options as $option => $value)
-        {
-            if (in_array($option, $available_options))
-            {
-                $this->{'_'.$option} = $value;
-            }
-        }
+        // foreach ($options as $option => $value)
+        // {
+        //     if (in_array($option, $available_options))
+        //     {
+        //         $this->{'_'.$option} = $value;
+        //     }
+        // }
 
         $this->log('Attempting deployment...');
     }
@@ -145,17 +136,23 @@ class Deploy {
             exec('cd ' . $this->_repo_dir . ' && chmod -R og-rx .git');
             $this->log('Securing .git directory... ');
 
-            // Delete the previous codeigniter folder
-            exec('rm -rf ' . $this->_root_dir . '/ri-reports-codeigniter');
-            $this->log('Deleted previous codeigniter folder');
+            // error_log('root: ' . $this->_root_dir);
+            if(isset($this->_root_dir)){
+                // Delete the previous codeigniter folder
+                exec('rm -rf ' . $this->_root_dir . '/ri-reports-codeigniter');
+                $this->log('Deleted previous codeigniter folder');
+            }
 
             // Move codeigniter files one up from public dir
             exec('cp -r ' . $this->_repo_dir . '/ri-reports-codeigniter ' . $this->_root_dir . '/ri-reports-codeigniter');
             $this->log('Copied codeigniter dir one up from public...');
 
-            // // Delete the files/folders in public dir
-            exec('rm -rf ' . $this->_public_dir . '/*');
-            $this->log('Deleted files/folders from public');
+            // error_log('root: ' . $this->_public_dir);
+            if(isset($this->_public_dir)){
+                // // Delete the files/folders in public dir
+                exec('rm -rf ' . $this->_public_dir . '/*');
+                $this->log('Deleted files/folders from public');
+            }
 
             // Move public files to public dir
             exec('cp -r ' . $this->_repo_dir . '/public-html/* ' . $this->_public_dir);
@@ -179,17 +176,8 @@ class Deploy {
 }
 
 // go
-$deploy = new Deploy(
-                array(
-                    $options->log_file,
-                    $options->date_format,
-                    $options->git_remote,
-                    $options->git_remote,
-                    $options->root_dir,
-                    $options->repo_dir,
-                    $options->public_dir
-                )
-            );
+// $deploy = new Deploy(array($options->log_file, $options->date_format, $options->git_remote, $options->git_remote));
+$deploy = new Deploy();
 $deploy->execute();
 
 ?>
