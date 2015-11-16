@@ -72,6 +72,7 @@ class Deploy {
     public function __construct($options = array())
     {
 
+        $this->log("\n\n================================================================================================\n");
         $this->log('Attempting deployment...');
 
     }
@@ -117,6 +118,18 @@ class Deploy {
             // $this->log('_remote: ' . $this->_remote);
             // $this->log('_branch: ' . $this->_branch);
 
+            // create backups directory if it does not already exist
+            if(!file_exists($this->_public_dir . '/.deployment/backups')){
+                exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
+                $this->log('Created deployment/backups directory...');
+            }
+
+            // // backup the codeigniter directory
+            // exec('cp -r ' . $this->_root_dir . '/ri-reports-codeigniter ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+
+            // $this->log('origin: ' . $this->_root_dir . '/ri-reports-codeigniter');
+            // $this->log('destination: ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+
             // Discard any changes to tracked files since our last deploy
             exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);
             $this->log('Reseting repository... ' . "\n" . implode(' ', $output)) . "\n";
@@ -129,7 +142,6 @@ class Deploy {
             exec('cd ' . $this->_repo_dir . ' && chmod -R og-rx .git');
             $this->log('Securing .git directory... ');
 
-            // error_log('root: ' . $this->_root_dir);
             if(isset($this->_root_dir)){
                 // Delete the previous codeigniter folder
                 exec('rm -rf ' . $this->_root_dir . '/ri-reports-codeigniter');

@@ -20,12 +20,13 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
         $ mkdir .deployment
         $ cd .deployment
 
-3. Create files for the deployment script.
+3. Create files/directories for the deployment script.
 
         $ touch .htaccess
         $ touch bitbucket-hook.php
         $ touch deployments.log
         $ touch index.html
+        $ mkdir backups
 
 4. Add some code to your .htaccess file to only allow Bitbucket's servers access to the script and enable PHP error reporting.
 
