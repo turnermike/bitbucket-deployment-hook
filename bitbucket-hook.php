@@ -71,20 +71,9 @@ class Deploy {
      */
     public function __construct($options = array())
     {
-        // // Determine the directory path
-        // $this->_directory = realpath($this->_public_dir).DIRECTORY_SEPARATOR;
-
-        // $available_options = array('log', 'date_format', 'branch', 'remote');
-
-        // foreach ($options as $option => $value)
-        // {
-        //     if (in_array($option, $available_options))
-        //     {
-        //         $this->{'_'.$option} = $value;
-        //     }
-        // }
 
         $this->log('Attempting deployment...');
+
     }
 
     /**
@@ -111,8 +100,7 @@ class Deploy {
 
             // Write the message into the log file
             // Format: time --- type: message
-            // file_put_contents($filename, date($this->_date_format).' --- '.$type.': '.$message.PHP_EOL, FILE_APPEND);
-            file_put_contents($filename, date('Y-m-d H:i:s').' --- '.$type.': '.$message.PHP_EOL, FILE_APPEND);
+            file_put_contents($filename, date($this->_date_format) . ' --- ' . $type . ': ' . $message . PHP_EOL, FILE_APPEND);
         }
     }
 
@@ -128,6 +116,10 @@ class Deploy {
             // Discard any changes to tracked files since our last deploy
             exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);
             $this->log('Reseting repository... '.implode(' ', $output));
+
+            // $this->log('_repo_dir: ' . $this->_repo_dir);
+            // $this->log('_remote: ' . $this->_remote);
+            // $this->log('_branch: ' . $this->_branch);
 
             // Update the local repository
             exec('cd ' . $this->_repo_dir . ' && git pull '.$this->_remote.' '.$this->_branch, $output);
@@ -177,7 +169,6 @@ class Deploy {
 }
 
 // go
-// $deploy = new Deploy(array($options->log_file, $options->date_format, $options->git_remote, $options->git_remote));
 $deploy = new Deploy();
 $deploy->execute();
 
