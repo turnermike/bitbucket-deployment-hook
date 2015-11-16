@@ -10,7 +10,7 @@ class Deploy {
      *
      * @var callback
      */
-    public $post_deploy;
+    // public $post_deploy;
 
     /**
      * The name of the branch to pull from.
@@ -113,17 +113,17 @@ class Deploy {
         try
         {
 
-            // Discard any changes to tracked files since our last deploy
-            exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);
-            $this->log('Reseting repository... '.implode(' ', $output));
-
             // $this->log('_repo_dir: ' . $this->_repo_dir);
             // $this->log('_remote: ' . $this->_remote);
             // $this->log('_branch: ' . $this->_branch);
 
+            // Discard any changes to tracked files since our last deploy
+            exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);
+            $this->log('Reseting repository... ' . "\n" . implode(' ', $output)) . "\n";
+
             // Update the local repository
             exec('cd ' . $this->_repo_dir . ' && git pull '.$this->_remote.' '.$this->_branch, $output);
-            $this->log('Pulling in changes... '.implode(' ', $output));
+            $this->log('Pulling in changes...' . "\n" . implode(' ', $output)) . "\n";
 
             // Secure the .git directory
             exec('cd ' . $this->_repo_dir . ' && chmod -R og-rx .git');
@@ -134,6 +134,8 @@ class Deploy {
                 // Delete the previous codeigniter folder
                 exec('rm -rf ' . $this->_root_dir . '/ri-reports-codeigniter');
                 $this->log('Deleted previous codeigniter folder');
+            }else{
+                $this->log('_root_dir variable not set...', 'ERROR');
             }
 
             // Move codeigniter files one up from public dir
@@ -145,6 +147,8 @@ class Deploy {
                 // // Delete the files/folders in public dir
                 exec('rm -rf ' . $this->_public_dir . '/*');
                 $this->log('Deleted files/folders from public');
+            }else{
+                $this->log('_public_dir variable not set...', 'ERROR');
             }
 
             // Move public files to public dir
@@ -152,11 +156,11 @@ class Deploy {
             exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
             $this->log('Copied public-html files to public dir...');
 
-            if (is_callable($this->post_deploy))
-            {
-                // error_log('data: ' . $this->_data);
-                call_user_func($this->post_deploy, $this->_data);
-            }
+            // if (is_callable($this->post_deploy))
+            // {
+            //     // error_log('data: ' . $this->_data);
+            //     call_user_func($this->post_deploy, $this->_data);
+            // }
 
             $this->log('Deployment successful.');
         }
