@@ -4,7 +4,7 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 ## Local Repository
 
-1. Create a branch named 'staging' and push that to remote.
+1. Create a branch named 'staging' and push that to remote (origin).
 
         $ git checkout -b staging
         $ git push origin staging
@@ -36,13 +36,13 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 5. Add some code to your index.html file. It's just a directory index, no body should be able to access it, but just incase we'll add a message.
 
-        $nano index.html
+        $ nano index.html
 
         Copy and paste the code from index.html in this repo to your new file.
 
 6. Add the deployment script code.
 
-    $nano bitbucket-hook.php
+    $ nano bitbucket-hook.php
 
     Copy and paste the code from bitbucket-hook.php in this repo to your new file.
 
@@ -50,6 +50,17 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 ## Hook Script Setup
 
+1. Add the deployment hook code. If you're not already editing bitbucket-hook.php via nano, please do so.
+
+    $ nano bitbucket-hook.php
+
+3. Open a text editor such as text edit and collect all neccessary paths. In the next few steps we will need your public/html path, the path to your git repo and the path to the directory one above your public folder. We'll be calling this your root path. Find those paths and paste them in your text edit for easy retrieval later.
+
+For example:
+
+Root Directory: /var/www/vhosts/yourname.com
+Public Directory: /var/www/vhosts/yourname.com/httpdocs
+Repo Directory: /var/www/vhosts/yourname.com/ yourname-STAGING.git
 
 
 

@@ -35,18 +35,18 @@ class Deploy {
     private $_root_dir = '/var/www/vhosts/ristaging.ca';
 
     /**
-     * The git repo directory.
-     *
-     * @var string
-     */
-    private $_repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
-
-    /**
      * The public/html directory.
      *
      * @var string
      */
     private $_public_dir = '/var/www/vhosts/ristaging.ca/ri-reports.ristaging.ca';
+
+    /**
+     * The git repo directory.
+     *
+     * @var string
+     */
+    private $_repo_dir = '/var/www/vhosts/ristaging.ca/ri-reports.git';
 
     /**
      * The name of the file that will be used for logging deployments. Set to
