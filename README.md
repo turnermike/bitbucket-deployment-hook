@@ -59,9 +59,12 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 For example:
 
-Root Directory: /var/www/vhosts/yourname.com
-Public Directory: /var/www/vhosts/yourname.com/httpdocs
-Repo Directory: /var/www/vhosts/yourname.com/ yourname-STAGING.git
+Root Directory: /var/www/vhosts/yourname.com  
+Public Directory: /var/www/vhosts/yourname.com/httpdocs  
+Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git  
+
+
+
 
 
 
