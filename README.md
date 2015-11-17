@@ -66,13 +66,13 @@ Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git
 
 4. Next we need to populate the scripts settings variables. The most important variables here are the server paths and branch.
 
-    private $_branch = 'staging';   // the git branch to pull from (your server environment)
-    private $_remote = 'origin';    // name of the git remote to pull from (leave as origin)
-    private $_root_dir = '';        // path to the directory a level up from your public/html directory
-    private $_public_dir = '';      // path to the public/html directory
-    private $_repo_dir = '';        // path to the git repository directory on server
-    private $_log = '';             // log file name
-    private $_date_format = '';     // used in log file
+        private $_branch = 'staging';   // the git branch to pull from (your server environment)
+        private $_remote = 'origin';    // name of the git remote to pull from (leave as origin)
+        private $_root_dir = '';        // path to the directory a level up from your public/html directory
+        private $_public_dir = '';      // path to the public/html directory
+        private $_repo_dir = '';        // path to the git repository directory on server
+        private $_log = '';             // log file name
+        private $_date_format = '';     // used in log file
 
 
 
