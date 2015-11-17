@@ -55,13 +55,37 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
     $ nano bitbucket-hook.php
 
-3. Open a text editor such as text edit and collect all neccessary paths. In the next few steps we will need your public/html path, the path to your git repo and the path to the directory one above your public folder. We'll be calling this your root path. Find those paths and paste them in your text edit for easy retrieval later.
+3. Over the next few steps we will require some server paths. I suggest you open a text editor and jot down your public/html path, the path to your git repository, and the path to the directory one level up from your public/html directory on the server. We'll call this your root path.
 
 For example:
 
 Root Directory: /var/www/vhosts/yourname.com
 Public Directory: /var/www/vhosts/yourname.com/httpdocs
 Repo Directory: /var/www/vhosts/yourname.com/ yourname-STAGING.git
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

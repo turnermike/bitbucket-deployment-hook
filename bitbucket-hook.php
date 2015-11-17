@@ -118,7 +118,7 @@ class Deploy {
             $this->log('_public_dir: ' . $this->_public_dir);
             $this->log('_remote: ' . $this->_remote);
             $this->log('_branch: ' . $this->_branch);
-            $this->log('date: ' . date('Y-m-d_H-i'));
+            $this->log('date/time: ' . date('Y-m-d_H-i'));
 
             // change directory to root
             exec('cd ' . $this->_root_dir);
@@ -143,7 +143,6 @@ class Deploy {
             // move the contents of the public/html directory to backup
             exec('mv -f ' . $this->_public_dir . '/{*,.*} ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
             $this->log('Backed up public/html directory...');
-
 
             // // create the .deployment/backups/Y-m-d_H-i/public-html directory
             // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
