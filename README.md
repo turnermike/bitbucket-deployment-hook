@@ -44,13 +44,7 @@ In this example, we will be setting up a deployment script for our staging serve
 
         Copy and paste the code from index.html in this repo to your new file.
 
-6. Add the deployment script code.
-
-	    $ nano bitbucket-hook.php
-
-	    Copy and paste the code from bitbucket-hook.php in this repo to your new file.
-
-7. The log file (deployment.log) may be left blank as the hook script will be writting to it.
+6. The log file (deployment.log) may be left blank as the hook script will be writting to it.
 
 ## Hook Script Setup
 
