@@ -78,7 +78,7 @@ In this example, we will be setting up a deployment script for our staging serve
 
 5. Save bitbucket-hook.php.
 
-# Bitbucket Webhook URL
+# Add Bitbucket Webhook URL
 
 Finally, we'll need to add the Webhook. This is a URL to the bitbucket-hook.php script we created previously. Follow the steps below to add your Webhook:
 
@@ -89,6 +89,10 @@ Finally, we'll need to add the Webhook. This is a URL to the bitbucket-hook.php 
 5. For Title, type "Staging".
 6. Enter the URL to your script in the URL field. For example: http://yourname.com/.deployment/bitbucket-hook.php
 7. Click Save.
+
+# Deploy!
+
+Simply push your local 'staging' branch to origin and your files should be up there.
 
 
 
