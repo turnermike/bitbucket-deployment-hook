@@ -72,7 +72,7 @@ class Deploy {
     public function __construct($options = array())
     {
 
-        $this->log("\n\n================================================================================================\n");
+        $this->log("\n================================================================================================\n");
         $this->log('Attempting deployment...');
 
     }
@@ -120,18 +120,39 @@ class Deploy {
             $this->log('_branch: ' . $this->_branch);
             $this->log('date: ' . date('Y-m-d_H-i'));
 
+            // change directory to root
+            exec('cd ' . $this->_root_dir);
+
             // create backups directory if it does not already exist
             if(!file_exists($this->_public_dir . '/.deployment/backups')){
                 exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
                 $this->log('Created deployment/backups directory...');
             }
 
-            // // backup the codeigniter directory
+            // create the backup directory .deployment/backups/Y-m-d_H-i
             exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
-            exec('cp -r ' . $this->_root_dir . '/ri-reports-codeigniter ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+            $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
 
-            // $this->log('origin: ' . $this->_root_dir . '/ri-reports-codeigniter');
-            // $this->log('destination: ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+            // copy the codeigniter directory
+            exec('cp -r ' . $this->_root_dir . '/ri-reports-codeigniter ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+            $this->log('Backed up codeigniter directory...');
+
+            // create the .deployment/backups/Y-m-d_H-i/public-html directory
+            exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
+            $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . '/public-html directory...');
+            // move the contents of the public/html directory to backup
+            exec('mv -f ' . $this->_public_dir . '/{*,.*} ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
+            $this->log('Backed up public/html directory...');
+
+
+            // // create the .deployment/backups/Y-m-d_H-i/public-html directory
+            // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
+            // $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . '/public-html directory...');
+            // // copy the contents of the public html directory
+            // exec('cp -r ' . $this->_public_dir . '/* ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
+            // // copy the hidden .htaccess file
+            // exec('cp -r ' . $this->_public_dir . '/.htaccess ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
+            // $this->log('Backed up public html directory...');
 
             // Discard any changes to tracked files since our last deploy
             exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);
@@ -177,7 +198,7 @@ class Deploy {
             //     call_user_func($this->post_deploy, $this->_data);
             // }
 
-            $this->log('Deployment successful.');
+            $this->log('Deployment successful.' . "\n\n");
         }
         catch (Exception $e)
         {
