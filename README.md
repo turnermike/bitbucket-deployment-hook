@@ -60,7 +60,7 @@ Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git
 
 2. Add the deployment hook code. If you're not already editing bitbucket-hook.php via nano, please do so.
 
-    $ nano bitbucket-hook.php
+        $ nano bitbucket-hook.php
 
 3. Copy the PHP code from bitbucket-hook.php and paste into nano.
 
