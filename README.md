@@ -2,6 +2,8 @@
 
 This script will use Bitbucket Webhooks to copy files from your git repository to directories on the server. Before updating any code from the repository the script will backup the existing code to a folder under .deployments/backups/.
 
+In this example, we will be setting up a deployment script for our staging server.
+
 ## Local Repository
 
 1. Create a branch named 'staging' and push that to remote (origin).
@@ -75,6 +77,20 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 		private $_date_format = '';     // used in log file
 
 5. Save bitbucket-hook.php.
+
+# Bitbucket Webhook URL
+
+Finally, we'll need to add the Webhook. This is a URL to the bitbucket-hook.php script we created previously. Follow the steps below to add your Webhook:
+
+1. Login to Bitbucket and find your repository page.
+2. Click Settings from the left menu.
+3. Slick Webhooks from the secondary menu.
+4. Click the Add Webhook button.
+5. For Title, type "Staging".
+6. Enter the URL to your script in the URL field. For example: http://yourname.com/.deployment/bitbucket-hook.php
+7. Click Save.
+
+
 
 
 
