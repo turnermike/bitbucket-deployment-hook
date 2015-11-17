@@ -43,9 +43,9 @@ This script will use Bitbucket Webhooks to copy files from your git repository t
 
 6. Add the deployment script code.
 
-    $ nano bitbucket-hook.php
+	    $ nano bitbucket-hook.php
 
-    Copy and paste the code from bitbucket-hook.php in this repo to your new file.
+	    Copy and paste the code from bitbucket-hook.php in this repo to your new file.
 
 7. The log file (deployment.log) may be left blank as the hook script will be writting to it.
 
