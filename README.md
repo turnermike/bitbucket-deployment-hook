@@ -94,6 +94,11 @@ Finally, we'll need to add the Webhook. This is a URL to the bitbucket-hook.php 
 
 Simply push your local 'staging' branch to origin and your files should be up there.
 
+# Credits
+
+Brandon Summers - [Using Bitbucket for Automated Deployments](http://brandonsummers.name/blog/2012/02/10/using-bitbucket-for-automated-deployments/)
+
+
 
 
 
