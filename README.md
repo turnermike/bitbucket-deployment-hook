@@ -1,6 +1,6 @@
 # Bitbucket Webhooks Script
 
-This script will use Bitbucket Webhooks to copy files from your git repository to directories on the server.
+This script will use Bitbucket Webhooks to copy files from your git repository to directories on the server. Before updating any code from the repository the script will backup the existing code to a folder under .deployments/backups/.
 
 ## Local Repository
 
@@ -73,6 +73,8 @@ Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git
 		private $_repo_dir = '';        // path to the git repository directory on server
 		private $_log = '';             // log file name
 		private $_date_format = '';     // used in log file
+
+5. Save bitbucket-hook.php.
 
 
 
