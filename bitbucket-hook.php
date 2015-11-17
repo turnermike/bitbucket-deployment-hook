@@ -114,9 +114,11 @@ class Deploy {
         try
         {
 
-            // $this->log('_repo_dir: ' . $this->_repo_dir);
-            // $this->log('_remote: ' . $this->_remote);
-            // $this->log('_branch: ' . $this->_branch);
+            $this->log('_root_dir: ' . $this->_root_dir);
+            $this->log('_public_dir: ' . $this->_public_dir);
+            $this->log('_remote: ' . $this->_remote);
+            $this->log('_branch: ' . $this->_branch);
+            $this->log('date: ' . date('Y-m-d_H-i'));
 
             // create backups directory if it does not already exist
             if(!file_exists($this->_public_dir . '/.deployment/backups')){
@@ -125,7 +127,8 @@ class Deploy {
             }
 
             // // backup the codeigniter directory
-            // exec('cp -r ' . $this->_root_dir . '/ri-reports-codeigniter ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+            exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+            exec('cp -r ' . $this->_root_dir . '/ri-reports-codeigniter ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
 
             // $this->log('origin: ' . $this->_root_dir . '/ri-reports-codeigniter');
             // $this->log('destination: ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
