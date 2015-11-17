@@ -13,12 +13,13 @@ In this example, we will be setting up a deployment script for our staging serve
 
 ## Remote Server Setup
 
-1. Clone your repo a directory up from the public directory. SSH into the server and find the directory one up from the public html directory. Add a '.git' extension to the directory name so we know it's a git repo.
+1. Clone your repo a level up from the public directory. SSH into the server and find the directory one up from the public html directory. Add a '.git' extension to the directory name so we know it's a git repo.
 
         $ git clone git@bitbucket.org:username/repo-name.git repo-name.git
 
 2. Create a directory within your public folder for the deployment script and then change into that new directory. Please navigate to your public html directory via command line.
-
+        
+        $ cd yourname.com
         $ mkdir .deployment
         $ cd .deployment
 
@@ -97,7 +98,7 @@ Simply push your local 'staging' branch to origin and your files should be up th
 # Credits
 
 Brandon Summers - [Using Bitbucket for Automated Deployments](http://brandonsummers.name/blog/2012/02/10/using-bitbucket-for-automated-deployments/)
-
+Atlassain - [Managing Webhooks](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)
 
 
 
