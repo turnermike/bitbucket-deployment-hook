@@ -50,10 +50,10 @@ In this example, we will be setting up a deployment script for our staging serve
 
 1. Over the next few steps we will require some server paths. I suggest you open a text editor and jot down your public/html path, the path to your git repository on the server, and the path to the directory one level up from your public/html directory. We'll call this your root path.
 
-	For example:
-	Root Directory: /var/www/vhosts/yourname.com
-	Public Directory: /var/www/vhosts/yourname.com/httpdocs
-	Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git
+	For example:  
+	Root Directory: /var/www/vhosts/yourname.com  
+	Public Directory: /var/www/vhosts/yourname.com/httpdocs  
+	Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git  
 
 2. Add the deployment hook code. If you're not already editing bitbucket-hook.php via nano, please do so.
 
