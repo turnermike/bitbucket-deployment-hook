@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This script should be copied to .git/hooks/ in your local repo
+
+if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
+
+    # Change to deploy dir
+    cd /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy
+    # Dump the database
+    mysqldump -u root -proot ri_contest_templates > /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/ri_contest_templates.sql
+
+fi

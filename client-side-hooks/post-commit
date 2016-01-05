@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# This script should be copied to .git/hooks/ in your local repo
+
+if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
+
+    # Change to deploy dir
+    cd /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy
+    # Import the dump file
+    mysql -h contest-templates.ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/ri_contest_templates.sql
+    # Remove the dump file
+    rm ri_contest_templates.sql
+
+fi
