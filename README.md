@@ -29,7 +29,6 @@ In this example, we will be setting up a deployment script for our staging serve
         $ touch bitbucket-hook.php
         $ touch deployments.log
         $ touch index.html
-        $ mkdir backups
 
 4. Add some code to your .htaccess file to only allow Bitbucket's servers access to the script and enable PHP error reporting.
 
@@ -50,10 +49,11 @@ In this example, we will be setting up a deployment script for our staging serve
 
 1. Over the next few steps we will require some server paths. I suggest you open a text editor and jot down your public/html path, the path to your git repository on the server, and the path to the directory one level up from your public/html directory. We'll call this your root path.
 
-	For example:  
-	Root Directory: /var/www/vhosts/yourname.com  
-	Public Directory: /var/www/vhosts/yourname.com/httpdocs  
-	Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git  
+	For example:
+	Root Directory: /var/www/vhosts/yourname.com
+	Public Directory: /var/www/vhosts/yourname.com/httpdocs
+	Repo Directory: /var/www/vhosts/yourname.com/yourname-STAGING.git
+        Code Igniter: /var/www/vhosts/yourname.com/yourname-codeigniter
 
 2. Add the deployment hook code. If you're not already editing bitbucket-hook.php via nano, please do so.
 
@@ -63,13 +63,14 @@ In this example, we will be setting up a deployment script for our staging serve
 
 4. Next we need to populate the scripts settings variables. The most important variables here are the server paths and branch.
 
-		private $_branch = 'staging';   // the git branch to pull from (your server environment)
-		private $_remote = 'origin';    // name of the git remote to pull from (leave as origin)
-		private $_root_dir = '';        // path to the directory a level up from your public/html directory
-		private $_public_dir = '';      // path to the public/html directory
-		private $_repo_dir = '';        // path to the git repository directory on server
-		private $_log = '';             // log file name
-		private $_date_format = '';     // used in log file
+		private $_branch = 'staging';         // the git branch to pull from (your server environment)
+		private $_remote = 'origin';          // name of the git remote to pull from (leave as origin)
+                private $_enable_backups = false;     // enable/disable backups - backups will be saved to .deployment/backups after each deployment
+		private $_root_dir = '';              // path to the directory a level up from your public/html directory
+		private $_public_dir = '';            // path to the public/html directory
+		private $_repo_dir = '';              // path to the git repository directory on server
+		private $_log = 'deployments.log';    // log file name
+		private $_date_format = 'Y-m-d H:i:s';// used in log file
 
 5. Save bitbucket-hook.php.
 
@@ -91,8 +92,8 @@ Simply push your local 'staging' branch to origin and your files should be up th
 
 # Credits
 
-Brandon Summers - [Using Bitbucket for Automated Deployments](http://brandonsummers.name/blog/2012/02/10/using-bitbucket-for-automated-deployments/)  
-Atlassain - [Managing Webhooks](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)  
+Brandon Summers - [Using Bitbucket for Automated Deployments](http://brandonsummers.name/blog/2012/02/10/using-bitbucket-for-automated-deployments/)
+Atlassain - [Managing Webhooks](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)
 
 
 
