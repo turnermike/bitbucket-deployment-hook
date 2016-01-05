@@ -116,7 +116,7 @@ Simply push your local 'staging' branch to origin and your files should be up th
 
 Brandon Summers - [Using Bitbucket for Automated Deployments](http://brandonsummers.name/blog/2012/02/10/using-bitbucket-for-automated-deployments/)
 Atlassain - [Managing Webhooks](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)
-
+        Ben Kulbertis - [Synchronizing a MySQL Database with Git and Git Hooks](http://ben.kulbertis.org/2011/10/synchronizing-a-mysql-database-with-git-and-git-hooks/)
 
 
 
