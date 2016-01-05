@@ -57,7 +57,7 @@ In this example, we will be setting up a deployment script for our staging serve
 
 2. Add the deployment hook code. If you're not already editing bitbucket-hook.php via nano, please do so.
 
-		$ nano bitbucket-hook.php
+	$ nano bitbucket-hook.php
 
 3. Copy the PHP code from bitbucket-hook.php and paste into nano.
 
@@ -76,7 +76,7 @@ In this example, we will be setting up a deployment script for our staging serve
 
 # Add Bitbucket Webhook URL
 
-Finally, we'll need to add the Webhook. This is a URL to the bitbucket-hook.php script we created previously. Follow the steps below to add your Webhook:
+Next, we'll need to add the Webhook to BitBucket. This is a URL to the bitbucket-hook.php script we created previously. Follow the steps below to add your Webhook:
 
 1. Login to Bitbucket and find your repository page.
 2. Click Settings from the left menu.
@@ -85,6 +85,28 @@ Finally, we'll need to add the Webhook. This is a URL to the bitbucket-hook.php 
 5. For Title, type "Staging".
 6. Enter the URL to your script in the URL field. For example: http://yourname.com/.deployment/bitbucket-hook.php
 7. Click Save.
+
+# MySQL Dumps/Imports (optional)
+
+If you have a MySQL database to migrate to the server. Please follow these steps to use client side Git Hooks for automating the process:
+
+1. Open terminal and navigate to your project directory.
+2. Change into the Git 'hooks' directory.
+        
+        $ cd .git/hooks
+
+3. Create a file named 'pre-commit' and 'post-commit'. These names suggest that the 'pre-commit' script will be run before the commit and 'post-commit' will be run after.
+
+        $ touch pre-commit
+        $ touch post-commit
+
+4. Copy and paste the code from each file in this repo's 'client-side-hooks' directory to your new files.
+5. Edit pre-commit to add your local database settings. You'll need the path to your local deploy/public directory and your MySQL credentials and database name.
+6. Edit post-commnit to add your remote database settings. You'll need the same path used in the previous step, and your remote MySQL credentials and database name.
+
+
+
+
 
 # Deploy!
 
