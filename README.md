@@ -63,14 +63,14 @@ In this example, we will be setting up a deployment script for our staging serve
 
 4. Next we need to populate the scripts settings variables. The most important variables here are the server paths and branch.
 
-                private $_branch = 'staging';         // the git branch to pull from (your server environment)
-                private $_remote = 'origin';          // name of the git remote to pull from (leave as origin)
-                private $_enable_backups = false;     // enable/disable backups - backups will be saved to .deployment/backups after each deployment
-                private $_root_dir = '';              // path to the directory a level up from your public/html directory
-                private $_public_dir = '';            // path to the public/html directory
-                private $_repo_dir = '';              // path to the git repository directory on server
-                private $_log = 'deployments.log';    // log file name
-                private $_date_format = 'Y-m-d H:i:s';// used in log file
+        private $_branch = 'staging';         // the git branch to pull from (your server environment)
+        private $_remote = 'origin';          // name of the git remote to pull from (leave as origin)
+        private $_enable_backups = false;     // enable/disable backups - backups will be saved to .deployment/backups after each deployment
+        private $_root_dir = '';              // path to the directory a level up from your public/html directory
+        private $_public_dir = '';            // path to the public/html directory
+        private $_repo_dir = '';              // path to the git repository directory on server
+        private $_log = 'deployments.log';    // log file name
+        private $_date_format = 'Y-m-d H:i:s';// used in log file
 
 5. Save bitbucket-hook.php.
 
