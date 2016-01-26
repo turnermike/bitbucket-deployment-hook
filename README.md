@@ -103,10 +103,10 @@ If you have a MySQL database to migrate to the server. Please follow these steps
 4. Copy and paste the code from each file in this repo's 'client-side-hooks' directory to your new files.
 5. Edit pre-commit to add your local database settings. You'll need the path to your local deploy/public directory and your MySQL credentials and database name.
 6. Edit post-commnit to add your remote database settings. You'll need the same path used in the previous step, and your remote MySQL credentials and database name.
-
-
-
-
+7. Assign executable permissions to the two hooks:
+        
+        $ chmod +x pre-commit
+        $ chmod +x post-commit
 
 # Deploy!
 
