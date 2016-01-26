@@ -143,14 +143,14 @@ class Deploy {
                 // change directory to root
                 exec('cd ' . $this->_root_dir);
 
-                // create backups directory if it does not already exist
-                if(!file_exists($this->_public_dir . '/.deployment/backups')){
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
-                    $this->log('Created deployment/backups directory...');
-                }
-
                 // backup
                 if($this->_enable_backups){
+
+                    // create backups directory if it does not already exist
+                    if(!file_exists($this->_public_dir . '/.deployment/backups')){
+                        exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
+                        $this->log('Created deployment/backups directory...');
+                    }
 
                     // create the backup directory .deployment/backups/Y-m-d_H-i
                     exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
