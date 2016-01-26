@@ -2,13 +2,26 @@
 
 # This script should be copied to .git/hooks/ in your local repo
 
+# Staging Server
 if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
 
-    # Change to deploy dir
-    cd /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy
     # Import the dump file
-    mysql -h contest-templates.ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/ri_contest_templates.sql
+    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
     # Remove the dump file
-    rm ri_contest_templates.sql
+    rm wv_giftsnews.sql
+    # Run update script to adjust URLs
+    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/assets/scripts/update_staging.sql
 
 fi
+
+# # Production Server
+# if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
+
+#     # Import the dump file
+#     mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
+#     # Remove the dump file
+#     rm wv_ncfs.sql
+#     # Run update script to adjust URLs
+#     mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/assets/scripts/update_production.sql
+
+# fi
