@@ -178,9 +178,9 @@ class Deploy {
                 $this->log('Deleted files/folders from public...');
 
                 // Move public files to public dir
-                exec('cp -r ' . $this->_repo_dir . '/public-html/* ' . $this->_public_dir);
-                exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
-                $this->log('Copied public-html files to public dir...');
+                exec('cp -r ' . $this->_repo_dir . '* ' . $this->_public_dir);
+                exec('cp -r ' . $this->_repo_dir . '.htaccess ' . $this->_public_dir);
+                $this->log('Copied deploy dir files to public dir...');
 
                 // if (is_callable($this->post_deploy))
                 // {
