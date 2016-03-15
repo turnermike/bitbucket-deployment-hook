@@ -210,12 +210,12 @@ class Deploy {
                 exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
 
-                // Remove index.php
-                exec('rm ' . $this->_public_dir . '/index.php');
-                $this->log('Removed index.php...');
-                // Rename index.php.staging to index.php
-                exec('mv ' . $this->_public_dir . '/index.php.staging ' . $this->_public_dir . '/index.php');
-                $this->log('Renamed index.php.staging to index.php...');
+                // // Remove index.php
+                // exec('rm ' . $this->_public_dir . '/index.php');
+                // $this->log('Removed index.php...');
+                // // Rename index.php.staging to index.php
+                // exec('mv ' . $this->_public_dir . '/index.php.staging ' . $this->_public_dir . '/index.php');
+                // $this->log('Renamed index.php.staging to index.php...');
 
                 // if (is_callable($this->post_deploy))
                 // {
