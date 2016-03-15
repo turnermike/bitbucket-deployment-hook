@@ -6,14 +6,17 @@
 if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
 
     # Dump the database
-    mysqldump -u root -proot wv_giftsnews > ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
+    mysqldump -u root -proot ri_templates > ~/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/ri_templates.sql
 
 fi
 
-# # Production Server
-# if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
+# Production Server
+if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
 
-#     # Dump the database
-#     mysqldump -u root -proot wv_giftsnews > ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
+    # Dump the database
+    mysqldump -u root -proot ri_templates > ~/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/ri_templates.sql
 
-# fi
+    # Backup remote database to local assets dir
+    mysqldump -h got2bunboring.ca -u got2b -p'8Noi4$a2' got2bunboring_website > /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/assets/database/production-backup/got2bunboring_website.sql
+
+fi

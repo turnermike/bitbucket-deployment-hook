@@ -14,14 +14,14 @@ if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
 
 fi
 
-# # Production Server
-# if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
+# Production Server
+if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
 
-#     # Import the dump file
-#     mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
-#     # Remove the dump file
-#     rm wv_ncfs.sql
-#     # Run update script to adjust URLs
-#     mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/assets/scripts/update_production.sql
+    # Import the dump file
+    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
+    # Remove the dump file
+    rm wv_ncfs.sql
+    # Run update script to adjust URLs
+    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/assets/scripts/update_production.sql
 
-# fi
+fi
