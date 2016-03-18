@@ -2,7 +2,6 @@
 
 //date_default_timezone_set('America/Toronto');
 
-
 class Deploy {
 
     /**
@@ -32,7 +31,7 @@ class Deploy {
      *
      * @var boolean
      */
-    private $_enable_backups = false;
+    private $_enable_backups = true;
 
     /**
      * The directory above the public directory.
@@ -64,6 +63,20 @@ class Deploy {
     private $_ci_dir = '/var/www/vhosts/ristaging.ca/contest-templates-codeigniter';
 
     /**
+     * The new backup directory name. This is where a previous version will be saved before latest is copied.
+     *
+     * @var string
+     */
+    private $_backup_dir = '/var/www/vhosts/got2bunboring.ca/httpdocs/.deployment/backups';
+
+    /**
+     * Date and Time. Used for backup directory name.
+     *
+     * @var datetime
+     */
+    private $_now = '';
+
+    /**
      * The name of the file that will be used for logging deployments. Set to
      * FALSE to disable logging.
      *
@@ -89,6 +102,8 @@ class Deploy {
 
         $this->log("\n================================================================================================\n");
         $this->log('Attempting deployment...');
+
+        $this->_now = date('Y-m-d_H-i-s');
 
     }
 
@@ -138,7 +153,7 @@ class Deploy {
             $this->log('_ci_dir: ' . $this->_ci_dir);
             $this->log('_log: ' . $this->_log);
 
-            if(isset($this->_branch, $this->_remote, $this->_root_dir, $this->_public_dir, $this->_repo_dir, $this->_ci_dir)){
+            if(isset($this->_branch, $this->_remote, $this->_root_dir, $this->_public_dir, $this->_repo_dir, $this->_ci_dir, $this->_backup_dir)){
 
                 // change directory to root
                 exec('cd ' . $this->_root_dir);
@@ -146,26 +161,23 @@ class Deploy {
                 // backup
                 if($this->_enable_backups){
 
-                    // create backups directory if it does not already exist
-                    if(!file_exists($this->_public_dir . '/.deployment/backups')){
-                        exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
-                        $this->log('Created deployment/backups directory...');
-                    }
-
                     // create the backup directory .deployment/backups/Y-m-d_H-i
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+                    // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+                    exec('mkdir ' . $this->_backup_dir . '/' . $this->_now);
                     $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
 
                     // copy the codeigniter directory
-                    exec('cp -r ' . $this->_ci_dir . ' ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+                    // exec('cp -r ' . $this->_ci_dir . ' ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+                    exec('cp -r ' . $this->_ci_dir . ' ' . $this->_backup_dir . '/' . $this->_now);
                     $this->log('Backed up codeigniter directory...');
 
                     // create the .deployment/backups/Y-m-d_H-i/public-html directory
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
-                    $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . '/public-html directory...');
+                    // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
+                    exec('mkdir ' . $this->_backup_dir . '/' . $this->_now . '/public-html');
+                    $this->log('Created backup public_html directory...');
                     // move the contents of the public/html directory to backup
-                    exec('mv -f ' . $this->_public_dir . '/{*,.*} ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
-                    $this->log('Backed up public/html directory...');
+                    exec('mv -f ' . $this->_public_dir . '/{*,.*} ' . $this->_backup_dir . '/' . $this->_now  . '/public-html/');
+                    $this->log('Backed up public_html directory...');
                 }
 
                 // Discard any changes to tracked files since our last deploy
@@ -210,12 +222,6 @@ class Deploy {
                 exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
 
-                // // Remove index.php
-                // exec('rm ' . $this->_public_dir . '/index.php');
-                // $this->log('Removed index.php...');
-                // // Rename index.php.staging to index.php
-                // exec('mv ' . $this->_public_dir . '/index.php.staging ' . $this->_public_dir . '/index.php');
-                // $this->log('Renamed index.php.staging to index.php...');
 
                 // if (is_callable($this->post_deploy))
                 // {
