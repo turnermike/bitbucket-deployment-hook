@@ -16,6 +16,9 @@ if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
     # Dump the database
     mysqldump -u root -proot ri_templates > ~/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/ri_templates.sql
 
+    # Delete remote backups older than 7 days
+    find /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/assets/database/production-backup/*.sql -mtime +7 | xargs rm -Rf;
+
     # Backup remote database to local assets dir
     mysqldump -h got2bunboring.ca -u got2b -p'8Noi4$a2' got2bunboring_website > /Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/assets/database/production-backup/got2bunboring_website.sql
 
