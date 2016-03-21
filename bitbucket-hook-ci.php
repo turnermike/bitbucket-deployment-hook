@@ -161,6 +161,16 @@ class Deploy {
                 // backup
                 if($this->_enable_backups){
 
+                    // create backups directory if it does not already exist
+                    if(!file_exists($this->_public_dir . '/.deployment/backups')){
+                        exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
+                        $this->log('Created deployment/backups directory...');
+                    }
+
+                    // delete backups older than 7 days
+                    exec('find ' . $this->_public_dir . '/.deployment/backups/* -mtime +7 -exec rm {} \;');
+                    $this->log('Removing backups older than 7 days...');
+
                     // create the backup directory .deployment/backups/Y-m-d_H-i
                     // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
                     exec('mkdir ' . $this->_backup_dir . '/' . $this->_now);
@@ -222,6 +232,13 @@ class Deploy {
                 exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
 
+                // // Create a placeholder index.html file (comming soon)
+                // exec('touch ' . $this->_public_dir . '/index.html');
+                // // exec('echo "got2bunboring.ca" > index.html');
+                // $fp = fopen($this->_public_dir . '/index.html', 'w');
+                // fwrite($fp, 'got2bunboring.ca');
+                // fclose($fp);
+                // $this->log('Created temporary index.html file.');
 
                 // if (is_callable($this->post_deploy))
                 // {
