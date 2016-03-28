@@ -31,7 +31,7 @@ class Deploy {
      *
      * @var boolean
      */
-    private $_enable_backups = true;
+    private $_enable_backups = false;
 
     /**
      * The directory above the public directory.
@@ -67,7 +67,7 @@ class Deploy {
      *
      * @var string
      */
-    private $_backup_dir = '/var/www/vhosts/got2bunboring.ca/httpdocs/.deployment/backups';
+    private $_backup_dir = '/var/www/vhosts/ristaging.ca/contest-templates.ristaging.ca/.deployment/backups';
 
     /**
      * Date and Time. Used for backup directory name.
@@ -172,7 +172,6 @@ class Deploy {
                     $this->log('Removing backups older than 7 days...');
 
                     // create the backup directory .deployment/backups/Y-m-d_H-i
-                    // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
                     exec('mkdir ' . $this->_backup_dir . '/' . $this->_now);
                     $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
 
@@ -182,7 +181,6 @@ class Deploy {
                     $this->log('Backed up codeigniter directory...');
 
                     // create the .deployment/backups/Y-m-d_H-i/public-html directory
-                    // exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
                     exec('mkdir ' . $this->_backup_dir . '/' . $this->_now . '/public-html');
                     $this->log('Created backup public_html directory...');
                     // move the contents of the public/html directory to backup
@@ -204,7 +202,6 @@ class Deploy {
 
                 // Delete the previous codeigniter folder
                 if(isset($this->_root_dir)){
-                    // exec('rm -rf ' . $this->_root_dir . '/contest-templates-codeigniter');
                     exec('rm -rf ' . $this->_ci_dir);
                     $this->log('Deleted previous codeigniter folder');
                 }else{
