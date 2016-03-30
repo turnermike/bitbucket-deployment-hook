@@ -201,28 +201,16 @@ class Deploy {
                 $this->log('Securing .git directory... ');
 
                 // Delete the previous codeigniter folder
-                if(isset($this->_root_dir)){
-                    exec('rm -rf ' . $this->_ci_dir);
-                    $this->log('Deleted previous codeigniter folder');
-                }else{
-                    $this->log('_root_dir variable not set...', 'ERROR');
-                }
+                exec('rm -rf ' . $this->_ci_dir);
+                $this->log('Deleted previous codeigniter folder');
 
                 // Move codeigniter files one up from public dir
-                if(isset($this->_repo_dir) && isset($this->_ci_dir)){
-                    exec('cp -r ' . $this->_repo_dir . '/codeigniter ' . $this->_ci_dir);
-                    $this->log('Copied codeigniter dir one up from public...');
-                }else{
-                    $this->log('_repo_dir and _ci_dir variables are not set...', 'ERROR');
-                }
+                exec('cp -r ' . $this->_repo_dir . '/codeigniter ' . $this->_ci_dir);
+                $this->log('Copied codeigniter dir one up from public...');
 
-                if(isset($this->_public_dir)){
-                    // Delete the files/folders in public dir
-                    exec('rm -rf ' . $this->_public_dir . '/*');
-                    $this->log('Deleted files/folders from public...');
-                }else{
-                    $this->log('_public_dir variable not set...', 'ERROR');
-                }
+                // Delete the files/folders in public dir
+                exec('rm -rf ' . $this->_public_dir . '/*');
+                $this->log('Deleted files/folders from public...');
 
                 // Move public files to public dir
                 exec('cp -r ' . $this->_repo_dir . '/public-html/* ' . $this->_public_dir);
