@@ -229,11 +229,14 @@ class Deploy {
                 exec('cp -r ' . $this->_repo_dir . '/public-html/.htaccess ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
 
+                // Delete the 'test' directory
+                exec('rm -rf ' . $this->_public_dir . '/test');
+                $this->log('Removed "test" directory...');
+
                 // // Create a placeholder index.html file (comming soon)
                 // exec('touch ' . $this->_public_dir . '/index.html');
-                // // exec('echo "got2bunboring.ca" > index.html');
                 // $fp = fopen($this->_public_dir . '/index.html', 'w');
-                // fwrite($fp, 'got2bunboring.ca');
+                // fwrite($fp, 'contest-templates.ca');
                 // fclose($fp);
                 // $this->log('Created temporary index.html file.');
 
