@@ -176,7 +176,6 @@ class Deploy {
                     $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
 
                     // copy the codeigniter directory
-                    // exec('cp -r ' . $this->_ci_dir . ' ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
                     exec('cp -r ' . $this->_ci_dir . ' ' . $this->_backup_dir . '/' . $this->_now);
                     $this->log('Backed up codeigniter directory...');
 
