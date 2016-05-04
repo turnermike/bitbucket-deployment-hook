@@ -220,12 +220,15 @@ class Deploy {
                 exec('rm -rf ' . $this->_public_dir . '/test');
                 $this->log('Removed "test" directory...');
 
-                // // Create a placeholder index.html file (comming soon)
-                // exec('touch ' . $this->_public_dir . '/index.html');
-                // $fp = fopen($this->_public_dir . '/index.html', 'w');
-                // fwrite($fp, 'contest-templates.ca');
-                // fclose($fp);
-                // $this->log('Created temporary index.html file.');
+                // Create a placeholder index.html file (comming soon)
+                exec('touch ' . $this->_public_dir . '/index.html');
+                $fp = fopen($this->_public_dir . '/index.html', 'w');
+                fwrite($fp, 'earlybirdornightowl.ca');
+                fclose($fp);
+                $this->log('Created temporary index.html file.');
+                exec('mv ' . $this->_public_dir . '/index.php ' . $this->_public_dir . '/index.php.orig');
+                $this->log('Renamed index.php to index.php.orig...');
+
 
                 // if (is_callable($this->post_deploy))
                 // {
