@@ -2,26 +2,55 @@
 
 # This script should be copied to .git/hooks/ in your local repo
 
+echo "START POST-COMMIT HOOK ---------------------------------"
+
+# Variables
+LOCAL_DEPLOY_DIR="/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/"
+echo "LOCAL_DEPLOY_DIR: $LOCAL_DEPLOY_DIR"
+LOCAL_ASSETS_DIR="/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/assets/"
+echo "LOCAL_ASSETS_DIR: $LOCAL_ASSETS_DIR"
+LOCAL_DUMP_FILE="ri_contest_templates.sql"
+echo "LOCAL_DUMP_FILE: $LOCAL_DUMP_FILE"
+
+
 # Staging Server
 if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
 
+    # WORDPRESS ONLY
+    # LOCAL_UPDATE_FILE="update_staging.sql"
+    # echo "LOCAL_UPDATE_FILE: $LOCAL_UPDATE_FILE"
+
     # Import the dump file
-    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
+    mysql -h ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
+    echo "Imported local dump file to staging server."
     # Remove the dump file
-    rm wv_giftsnews.sql
-    # Run update script to adjust URLs
-    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/assets/scripts/update_staging.sql
+    rm $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
+    echo "Removed local dump file from local deploy directory."
+
+    # WORDPRESS ONLY - Run update script to adjust URLs
+    # mysql -h ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < $LOCAL_ASSETS_DIR$LOCAL_UPDATE_FILE
 
 fi
 
-# Production Server
-if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
 
-    # Import the dump file
-    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/deploy/wv_giftsnews.sql
-    # Remove the dump file
-    rm wv_ncfs.sql
-    # Run update script to adjust URLs
-    mysql -h wvgn.ristaging.ca -u wvgn -p'Hvr767r_' ristaging_wvgn < ~/Sites/6Deg/WorldVision/worldvisiongiftnews/assets/scripts/update_production.sql
+# # Production Server
+# # This is only required for the initial production deployment. After that we do not want to overwrite the production database.
+# if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
 
-fi
+#     # WORDPRESS ONLY
+#     # LOCAL_UPDATE_FILE="update_production.sql"
+#     # echo "LOCAL_UPDATE_FILE: $LOCAL_UPDATE_FILE"
+
+#     # Import the dump file
+#     mysql -h ridevelopment.ca -u ridev_con_tpl -p'Pzsr8#60' ridevelopment_contest_templates < $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
+#     echo "Imported local dump file to production server."
+#     # Remove the dump file
+#     rm $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
+#     echo "Removed local dump file from local deploy directory."
+
+#     # WORDPRESS ONLY - Run update script to adjust URLs
+#     # mysql -h ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < $LOCAL_ASSETS_DIR$LOCAL_UPDATE_FILE
+
+# fi
+
+echo "FINISH POST-COMMIT HOOK --------------------------------"
