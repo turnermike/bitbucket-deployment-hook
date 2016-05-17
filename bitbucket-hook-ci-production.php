@@ -208,10 +208,6 @@ class Deploy {
                 exec('cp -r ' . $this->_repo_dir . '/codeigniter ' . $this->_ci_dir);
                 $this->log('Copied codeigniter dir one up from public...');
 
-                // Delete the files/folders in public dir
-                exec('rm -rf ' . $this->_public_dir . '*');
-                $this->log('Deleted files/folders from public...');
-
                 // Move all public files to public dir
                 exec('cp -a ' . $this->_repo_dir . 'public-html/. ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
