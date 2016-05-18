@@ -3,13 +3,9 @@ order deny,allow
 deny from all
 
 # allow access from these Bitbucket IPs
-# old ips
 allow from 131.103.20.160/27
 allow from 165.254.145.0/26
-allow from 165.254.145.0/26
-# new IPs as of 2015-12-15
-allow from 104.192.143.192/28
-allow from 104.192.143.208/28
+allow from 104.192.143.0/24
 
 # php errors
 php_flag display_startup_errors on
