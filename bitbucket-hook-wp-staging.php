@@ -40,21 +40,21 @@ class Deploy {
      *
      * @var string
      */
-    private $_root_dir = '/var/www/vhosts/ristaging.ca';
+    private $_root_dir = '/var/www/vhosts/ristaging.ca/';
 
     /**
      * The public/html directory.
      *
      * @var string
      */
-    private $_public_dir = '/var/www/vhosts/ristaging.ca/contest-templates.ristaging.ca';
+    private $_public_dir = '/var/www/vhosts/ristaging.ca/contest-templates.ristaging.ca/';
 
     /**
      * The git repo directory.
      *
      * @var string
      */
-    private $_repo_dir = '/var/www/vhosts/ristaging.ca/contest-templates-STAGING.git';
+    private $_repo_dir = '/var/www/vhosts/ristaging.ca/contest-templates-STAGING.git/';
 
     /**
      * The name of the file that will be used for logging deployments. Set to
@@ -139,24 +139,21 @@ class Deploy {
                 if($this->_enable_backups){
 
                     // create backups directory if it does not already exist
-                    if(!file_exists($this->_public_dir . '/.deployment/backups')){
-                        exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
+                    if(!file_exists($this->_public_dir . '.deployment/backups')){
+                        exec('mkdir ' . $this->_public_dir . '.deployment/backups');
                         $this->log('Created deployment/backups directory...');
                     }
 
                     // create the backup directory .deployment/backups/Y-m-d_H-i
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
+                    exec('mkdir ' . $this->_public_dir . '.deployment/backups/' . date('Y-m-d_H-i'));
                     $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
 
-                    // copy the codeigniter directory
-                    exec('cp -r ' . $this->_ci_dir . ' ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
-                    $this->log('Backed up codeigniter directory...');
-
                     // create the .deployment/backups/Y-m-d_H-i/public-html directory
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
+                    exec('mkdir ' . $this->_public_dir . '.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
                     $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . '/public-html directory...');
+
                     // move the contents of the public/html directory to backup
-                    exec('mv -f ' . $this->_public_dir . '/{*,.*} ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
+                    exec('mv -f ' . $this->_public_dir . '{*,.*} ' . $this->_public_dir . '.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
                     $this->log('Backed up public/html directory...');
                 }
 
@@ -173,13 +170,16 @@ class Deploy {
                 $this->log('Securing .git directory... ');
 
                 // Delete the files/folders in public dir
-                exec('rm -rf ' . $this->_public_dir . '/*');
+                exec('rm -rf ' . $this->_public_dir . '*');
                 $this->log('Deleted files/folders from public...');
 
                 // Move public files to public dir
-                exec('cp -r ' . $this->_repo_dir . '/* ' . $this->_public_dir);
-                exec('cp -r ' . $this->_repo_dir . '/.htaccess ' . $this->_public_dir);
+                exec('cp -a ' . $this->_repo_dir . '. ' . $this->_public_dir);
                 $this->log('Copied public files to public dir...');
+
+                // Make uploads directory writeable
+                exec('chmod -R 755 ' . $this->_public_dir . 'en/wp-content/uploads');
+                $this->log('Made uploads directory writeable...');
 
                 // if (is_callable($this->post_deploy))
                 // {
