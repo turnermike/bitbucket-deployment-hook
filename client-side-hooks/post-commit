@@ -2,8 +2,6 @@
 
 # This script should be copied to .git/hooks/ in your local repo
 
-echo "START POST-COMMIT HOOK ---------------------------------"
-
 # Variables
 LOCAL_DEPLOY_DIR="/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/deploy/"
 echo "LOCAL_DEPLOY_DIR: $LOCAL_DEPLOY_DIR"
@@ -15,6 +13,8 @@ echo "LOCAL_DUMP_FILE: $LOCAL_DUMP_FILE"
 
 # Staging Server
 if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
+
+    echo "START STAGING POST-COMMIT HOOK ---------------------------------"
 
     # WORDPRESS ONLY
     # LOCAL_UPDATE_FILE="update_staging.sql"
@@ -30,17 +30,21 @@ if [ `git rev-parse --abbrev-ref HEAD` == "staging" ]; then
     # WORDPRESS ONLY - Run update script to adjust URLs
     # mysql -h ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < $LOCAL_ASSETS_DIR$LOCAL_UPDATE_FILE
 
+    echo "FINISHED STAGING POST-COMMIT HOOK ---------------------------------"
+
 fi
 
 
 # # Production Server
-# # This is only required for the initial production deployment. After that we do not want to overwrite the production database.
 # if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
 
-#     # WORDPRESS ONLY
+#     echo "START PRODUCTION POST-COMMIT HOOK ---------------------------------"
+
+#     # # WORDPRESS ONLY
 #     # LOCAL_UPDATE_FILE="update_production.sql"
 #     # echo "LOCAL_UPDATE_FILE: $LOCAL_UPDATE_FILE"
 
+#     # This is only required for the initial production deployment. After that we do not want to overwrite the production database.
 #     # Import the dump file
 #     mysql -h ridevelopment.ca -u ridev_con_tpl -p'Pzsr8#60' ridevelopment_contest_templates < $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
 #     echo "Imported local dump file to production server."
@@ -48,9 +52,9 @@ fi
 #     rm $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
 #     echo "Removed local dump file from local deploy directory."
 
-#     # WORDPRESS ONLY - Run update script to adjust URLs
+#     # # WORDPRESS ONLY - Run update script to adjust URLs
 #     # mysql -h ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < $LOCAL_ASSETS_DIR$LOCAL_UPDATE_FILE
 
-# fi
+#     echo "FINISHED PRODUCTION POST-COMMIT HOOK ---------------------------------"
 
-echo "FINISH POST-COMMIT HOOK --------------------------------"
+# fi
