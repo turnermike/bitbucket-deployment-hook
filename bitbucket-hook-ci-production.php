@@ -184,7 +184,7 @@ class Deploy {
                     exec('mkdir ' . $this->_backup_dir . $this->_now . '/public-html');
                     $this->log('Created backup public_html directory...');
                     // move the contents of the public/html directory to backup
-                    exec('mv -f ' . $this->_public_dir . '{*,.*} ' . $this->_backup_dir . $this->_now  . '/public-html/');
+                    exec('cp -r ' . $this->_public_dir . '{*,.*} ' . $this->_backup_dir . $this->_now  . '/public-html/');
                     $this->log('Backed up public_html directory...');
                 }
 
