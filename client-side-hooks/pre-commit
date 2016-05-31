@@ -39,10 +39,6 @@ if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
     # mysqldump -u root -proot ri_contest_templates > $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
     # echo "Dumped local database to deploy directory.";
 
-    # # Delete remote backups (.deployment/backups) older than 7 days
-    # find "/Users/mturner/Sites/6Deg/RealInteractive/Corporate/ri-templates/assets/database/production-backup* -mtime +7 | xargs rm -Rf"
-    # echo "Removed production database backups older than 7 days."
-
     # Make the local assets backup directory if it does not exist
     mkdir -p $LOCAL_ASSETS_DIR"database/production-backup/"
     echo "Created local production database backup directory if it did not already exist"
@@ -50,10 +46,6 @@ if [ `git rev-parse --abbrev-ref HEAD` == "production" ]; then
     # Backup remote database to local assets dir
     mysqldump -h ridevelopment.ca -u ridev_con_tpl -p'Pzsr8#60' ridevelopment_contest_templates > $LOCAL_ASSETS_DIR"database/production-backup/ridevelopment_contest_templates_$(date +%Y-%m-%d_%H-%M-%S).sql"
     echo "Dumped production database to local assets backup."
-
-    # Backup remote user generated images to local /public-html/library/images
-    rsync -avzhe ridevelopment@ridevelopment.ca:$REMOTE_IMAGES_DIR"user_generated/" $LOCAL_IMAGES_DIR"user_generated/"
-    echo "Copied user gerated images from server."
 
     echo "FINISHED PRODUCTION PRE-COMMIT HOOK ---------------------------------"
 

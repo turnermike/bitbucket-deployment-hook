@@ -63,6 +63,13 @@ class Deploy {
     private $_ci_dir = '/var/www/vhosts/ridevelopment.ca/ridevelopment-codeigniter/';
 
     /**
+     * The temp directory. This should be one level up from the public/html directory. Used for writing new files.
+     *
+     * @var string
+     */
+    private $_temp_dir = '/var/www/vhosts/ridevelopment.ca/ridevelopment-temp/';
+
+    /**
      * The new backup directory name. This is where a previous version will be saved before latest is copied.
      *
      * @var string
@@ -184,7 +191,7 @@ class Deploy {
                     exec('mkdir ' . $this->_backup_dir . $this->_now . '/public-html');
                     $this->log('Created backup public_html directory...');
                     // move the contents of the public/html directory to backup
-                    exec('cp -r ' . $this->_public_dir . '{*,.*} ' . $this->_backup_dir . $this->_now  . '/public-html/');
+                    exec('cp -rf ' . $this->_public_dir . '{*,.*} ' . $this->_backup_dir . $this->_now  . '/public-html/');
                     $this->log('Backed up public_html directory...');
                 }
 
@@ -205,19 +212,23 @@ class Deploy {
                 $this->log('Deleted previous codeigniter folder');
 
                 // Move codeigniter files one up from public dir
-                exec('cp -r ' . $this->_repo_dir . '/codeigniter ' . $this->_ci_dir);
+                exec('cp -rf ' . $this->_repo_dir . '/codeigniter ' . $this->_ci_dir);
                 $this->log('Copied codeigniter dir one up from public...');
 
+                // Move temp directory one up from public dir
+                exec('cp -rf ' . $this->_repo_dir . '/temp ' . $this->_temp_dir);
+                $this->log('Copied temp dir one up from public...');
+
                 // Move all public files to public dir
-                exec('cp -a ' . $this->_repo_dir . 'public-html/. ' . $this->_public_dir);
+                exec('cp -rf ' . $this->_repo_dir . 'public-html/. ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
 
-                // Create a placeholder index.html file (comming soon)
-                exec('touch ' . $this->_public_dir . 'index.html');
-                $fp = fopen($this->_public_dir . 'index.html', 'w');
-                fwrite($fp, 'comming soon');
-                fclose($fp);
-                $this->log('Created temporary index.html file.');
+                // // Create a placeholder index.html file (comming soon)
+                // exec('touch ' . $this->_public_dir . 'index.html');
+                // $fp = fopen($this->_public_dir . 'index.html', 'w');
+                // fwrite($fp, 'comming soon');
+                // fclose($fp);
+                // $this->log('Created temporary index.html file.');
 
                 // if (is_callable($this->post_deploy))
                 // {

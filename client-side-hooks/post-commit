@@ -40,17 +40,17 @@ fi
 
 #     echo "START PRODUCTION POST-COMMIT HOOK ---------------------------------"
 
+#     # # This is only required for the initial production deployment. After that we do not want to overwrite the production database.
+#     # # Import the dump file
+#     # mysql -h ridevelopment.ca -u ridev_con_tpl -p'Pzsr8#60' ridevelopment_contest_templates < $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
+#     # echo "Imported local dump file to production server."
+#     # # Remove the dump file
+#     # rm $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
+#     # echo "Removed local dump file from local deploy directory."
+
 #     # # WORDPRESS ONLY
 #     # LOCAL_UPDATE_FILE="update_production.sql"
 #     # echo "LOCAL_UPDATE_FILE: $LOCAL_UPDATE_FILE"
-
-#     # This is only required for the initial production deployment. After that we do not want to overwrite the production database.
-#     # Import the dump file
-#     mysql -h ridevelopment.ca -u ridev_con_tpl -p'Pzsr8#60' ridevelopment_contest_templates < $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
-#     echo "Imported local dump file to production server."
-#     # Remove the dump file
-#     rm $LOCAL_DEPLOY_DIR$LOCAL_DUMP_FILE
-#     echo "Removed local dump file from local deploy directory."
 
 #     # # WORDPRESS ONLY - Run update script to adjust URLs
 #     # mysql -h ristaging.ca -u contest_tpl -p'Kgpc*401' ristaging_contest_templates < $LOCAL_ASSETS_DIR$LOCAL_UPDATE_FILE
