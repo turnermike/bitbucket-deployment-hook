@@ -65,7 +65,6 @@ In this example, we will be setting up a deployment script for our staging serve
 
         private $_branch = 'staging';         // the git branch to pull from (your server environment)
         private $_remote = 'origin';          // name of the git remote to pull from (leave as origin)
-        private $_enable_backups = false;     // enable/disable backups - backups will be saved to .deployment/backups after each deployment
         private $_root_dir = '';              // path to the directory a level up from your public/html directory
         private $_public_dir = '';            // path to the public/html directory
         private $_repo_dir = '';              // path to the git repository directory on server
