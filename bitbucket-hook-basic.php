@@ -2,7 +2,6 @@
 
 //date_default_timezone_set('America/Toronto');
 
-
 class Deploy {
 
     /**
@@ -25,14 +24,6 @@ class Deploy {
      * @var string
      */
     private $_remote = 'origin';
-
-    /**
-     * Enable backups of each past deployment.
-     * Backups saved to .deployment/backups
-     *
-     * @var boolean
-     */
-    private $_enable_backups = false;
 
     /**
      * The directory above the public directory.
@@ -128,38 +119,12 @@ class Deploy {
             $this->log('_root_dir: ' . $this->_root_dir);
             $this->log('_public_dir: ' . $this->_public_dir);
             $this->log('_repo_dir: ' . $this->_repo_dir);
-
             $this->log('_log: ' . $this->_log);
 
-            if(isset($this->_branch, $this->_remote, $this->_root_dir, $this->_public_dir, $this->_repo_dir)){
+            if(isset($this->_branch, $this->_remote, $this->_root_dir, $this->_public_dir, $this->_repo_dir, $this->_log)){
 
                 // change directory to root
                 exec('cd ' . $this->_root_dir);
-
-                // backup
-                if($this->_enable_backups){
-
-                    // create backups directory if it does not already exist
-                    if(!file_exists($this->_public_dir . '/.deployment/backups')){
-                        exec('mkdir ' . $this->_public_dir . '/.deployment/backups');
-                        $this->log('Created deployment/backups directory...');
-                    }
-
-                    // create the backup directory .deployment/backups/Y-m-d_H-i
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
-                    $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
-
-                    // copy the codeigniter directory
-                    exec('cp -r ' . $this->_ci_dir . ' ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i'));
-                    $this->log('Backed up codeigniter directory...');
-
-                    // create the .deployment/backups/Y-m-d_H-i/public-html directory
-                    exec('mkdir ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html');
-                    $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . '/public-html directory...');
-                    // move the contents of the public/html directory to backup
-                    exec('mv -f ' . $this->_public_dir . '/{*,.*} ' . $this->_public_dir . '/.deployment/backups/' . date('Y-m-d_H-i') . '/public-html/');
-                    $this->log('Backed up public/html directory...');
-                }
 
                 // Discard any changes to tracked files since our last deploy
                 exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);

@@ -26,14 +26,6 @@ class Deploy {
     private $_remote = 'origin';
 
     /**
-     * Enable backups of each past deployment.
-     * Backups saved to .deployment/backups
-     *
-     * @var boolean
-     */
-    private $_enable_backups = false;
-
-    /**
      * The directory above the public directory.
      * Used to store codeigniter folder and git repo.
      *
@@ -70,20 +62,6 @@ class Deploy {
     private $_temp_dir = '/var/www/vhosts/ristaging.ca/contest-templates-temp/';
 
     /**
-     * The new backup directory name. This is where a previous version will be saved before latest is copied.
-     *
-     * @var string
-     */
-    private $_backup_dir = '/var/www/vhosts/ristaging.ca/contest-templates.ristaging.ca/.deployment/backups/';
-
-    /**
-     * Date and Time. Used for backup directory name.
-     *
-     * @var datetime
-     */
-    private $_now = '';
-
-    /**
      * The name of the file that will be used for logging deployments. Set to
      * FALSE to disable logging.
      *
@@ -109,8 +87,6 @@ class Deploy {
 
         $this->log("\n================================================================================================\n");
         $this->log('Attempting deployment...');
-
-        $this->_now = date('Y-m-d_H-i-s');
 
     }
 
@@ -158,42 +134,12 @@ class Deploy {
             $this->log('_public_dir: ' . $this->_public_dir);
             $this->log('_repo_dir: ' . $this->_repo_dir);
             $this->log('_ci_dir: ' . $this->_ci_dir);
-            $this->log('_backup_dir: ' . $this->_backup_dir);
             $this->log('_log: ' . $this->_log);
 
-            if(isset($this->_branch, $this->_remote, $this->_root_dir, $this->_public_dir, $this->_repo_dir, $this->_ci_dir, $this->_backup_dir, $this->_log)){
+            if(isset($this->_branch, $this->_remote, $this->_root_dir, $this->_public_dir, $this->_repo_dir, $this->_ci_dir, $this->_log)){
 
                 // change directory to root
                 exec('cd ' . $this->_root_dir);
-
-                // backup
-                if($this->_enable_backups){
-
-                    // create backups directory if it does not already exist
-                    if(!file_exists($this->_public_dir . '.deployment/backups')){
-                        exec('mkdir ' . $this->_public_dir . '.deployment/backups');
-                        $this->log('Created deployment/backups directory...');
-                    }
-
-                    // delete backups older than 7 days
-                    exec('find ' . $this->_public_dir . '.deployment/backups/* -mtime +7 -exec rm {} \;');
-                    $this->log('Removing backups older than 7 days...');
-
-                    // create the backup directory .deployment/backups/Y-m-d_H-i
-                    exec('mkdir ' . $this->_backup_dir . $this->_now);
-                    $this->log('Created deployment/backups/' . date('Y-m-d_H-i') . ' directory...');
-
-                    // copy the codeigniter directory
-                    exec('cp -r ' . $this->_ci_dir . ' ' . $this->_backup_dir . $this->_now);
-                    $this->log('Backed up codeigniter directory...');
-
-                    // create the .deployment/backups/Y-m-d_H-i/public-html directory
-                    exec('mkdir ' . $this->_backup_dir . $this->_now . '/public-html');
-                    $this->log('Created backup public_html directory...');
-                    // move the contents of the public/html directory to backup
-                    exec('mv -f ' . $this->_public_dir . '{*,.*} ' . $this->_backup_dir . $this->_now  . '/public-html/');
-                    $this->log('Backed up public_html directory...');
-                }
 
                 // Discard any changes to tracked files since our last deploy
                 exec('cd ' . $this->_repo_dir . ' && git reset --hard HEAD', $output);
