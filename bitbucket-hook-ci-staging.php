@@ -158,11 +158,11 @@ class Deploy {
                 $this->log('Deleted previous codeigniter folder');
 
                 // Move codeigniter files one up from public dir
-                exec('cp -rf ' . $this->_repo_dir . '/codeigniter ' . $this->_ci_dir);
+                exec('cp -a ' . $this->_repo_dir . 'codeigniter ' . $this->_ci_dir);
                 $this->log('Copied codeigniter dir one up from public...');
 
                 // Move temp directory one up from public dir
-                exec('cp -rf ' . $this->_repo_dir . '/temp ' . $this->_temp_dir);
+                exec('cp -a ' . $this->_repo_dir . 'temp ' . $this->_temp_dir);
                 $this->log('Copied temp dir one up from public...');
 
                 // Delete the files/folders in public dir
