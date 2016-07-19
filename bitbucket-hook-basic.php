@@ -31,21 +31,21 @@ class Deploy {
      *
      * @var string
      */
-    private $_root_dir = '/var/www/vhosts/ristaging.ca';
+    private $_root_dir = '/var/www/vhosts/ristaging.ca/';
 
     /**
      * The public/html directory.
      *
      * @var string
      */
-    private $_public_dir = '/var/www/vhosts/ristaging.ca/contest-templates.ristaging.ca';
+    private $_public_dir = '/var/www/vhosts/ristaging.ca/contest-templates.ristaging.ca/';
 
     /**
      * The git repo directory.
      *
      * @var string
      */
-    private $_repo_dir = '/var/www/vhosts/ristaging.ca/contest-templates-STAGING.git';
+    private $_repo_dir = '/var/www/vhosts/ristaging.ca/contest-templates-STAGING.git/';
 
     /**
      * The name of the file that will be used for logging deployments. Set to
@@ -139,13 +139,12 @@ class Deploy {
                 $this->log('Securing .git directory... ');
 
                 // Delete the files/folders in public dir
-                exec('rm -rf ' . $this->_public_dir . '/*');
+                exec('rm -rf ' . $this->_public_dir . '*');
                 $this->log('Deleted files/folders from public...');
 
-                // Move public files to public dir
-                exec('cp -r ' . $this->_repo_dir . '/* ' . $this->_public_dir);
-                exec('cp -r ' . $this->_repo_dir . '/.htaccess ' . $this->_public_dir);
-                $this->log('Copied deploy dir files to public dir...');
+                // Move all public files to public dir
+                exec('cp -rf ' . $this->_repo_dir . '. ' . $this->_public_dir);
+                $this->log('Copied public-html files to public dir...');
 
                 // if (is_callable($this->post_deploy))
                 // {

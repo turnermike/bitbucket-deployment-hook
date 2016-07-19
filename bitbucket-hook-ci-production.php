@@ -166,7 +166,7 @@ class Deploy {
                 $this->log('Copied temp dir one up from public...');
 
                 // Move all public files to public dir
-                exec('cp -rf ' . $this->_repo_dir . 'public-html/. ' . $this->_public_dir);
+                exec('cp -a ' . $this->_repo_dir . 'public-html/. ' . $this->_public_dir);
                 $this->log('Copied public-html files to public dir...');
 
                 // // Create a placeholder index.html file (comming soon)
